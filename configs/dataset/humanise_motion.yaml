@@ -1,0 +1,23 @@
+train_dat:
+  name: HumaniseMotion
+  limit_size: -1
+  split: train
+
+val_dat:
+  name: HumaniseMotion
+  limit_size: -1
+  split: test
+
+test_dat:
+  name: HumaniseMotion
+  limit_size: -1
+  split: test
+
+dat_cfg:
+  humanise_root: data/HUMANISE
+  scannet_root: data/ScanNet
+  humanise_prep_root: data/humanise_preprocess
+  scannet_prep_root: data/scannet_preprocess
+  action: all
+  coord: oc
+  sample_data_interval: 1

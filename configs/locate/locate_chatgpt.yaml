@@ -1,0 +1,5 @@
+task: locate_chatgpt
+
+method: 'chatgpt'
+mode: 'gt'
+prompt_type: 'paper'

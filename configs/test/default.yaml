@@ -1,0 +1,22 @@
+task: save_results
+record_dir: out/test
+model_dir: out/test
+
+dataset_cfg_path: configs/dataset/humanise_motion.yaml
+action: all
+# visualize: false
+# vis_method: ''
+save: false
+save_type: ''
+
+test:
+  epoch: 1
+  batch_size: 1
+  shuffle: False
+  num_workers: 1
+
+train:
+  epoch: 1
+  batch_size: 1
+  shuffle: False
+  num_workers: 1

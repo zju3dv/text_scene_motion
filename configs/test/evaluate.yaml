@@ -1,0 +1,13 @@
+device: 0
+
+vis: False
+eval_dist: False
+eval_t2m: True
+stgcn: 'out/release/stgcn/model.pt'
+
+method: most
+action: all
+
+# folders:
+most: 
+  all: ['generate_most_twostage_motion_all']

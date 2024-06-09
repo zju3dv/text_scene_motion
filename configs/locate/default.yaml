@@ -1,0 +1,11 @@
+task: locate_object
+
+record_dir: out/locate
+model_dir: out/locate
+dataset_cfg_path: configs/dataset/humanise_motion.yaml
+
+test:
+  epoch: 1
+  batch_size: 1
+  shuffle: False
+  num_workers: 1

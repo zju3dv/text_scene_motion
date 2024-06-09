@@ -1,0 +1,15 @@
+tqdm
+trimesh
+smplx
+tensorboardX
+torchgeometry
+pyquaternion
+openai-clip
+einops
+wis3d
+
+# for stage 1
+# shapely
+# tenacity
+# openai
+# scikit-learn

@@ -1,0 +1,25 @@
+
+task: generate_most_twostage
+
+dataset_cfg_path: configs/dataset/humanise_motion.yaml
+
+save: true
+save_type: motion
+
+# wrapper cfg
+normalizer:
+  name: NormalizerPoseMotion
+  file: out/release/normalize/amass_az_humanise_oc_transl_orient6d_pose6d.pkl
+
+# whole pipeline
+coord: oc
+
+use_pred_center: True
+pred_center_root: out/locate/gt_chatgpt_paper/object_points
+
+two_stage: True
+two_stage_cfg:
+  traj: out/release/humanise_traj/config.resume.yaml
+  motion: out/release/humanise_motion/config.resume.yaml
+  traj_k: 10
+  motion_k: 1
