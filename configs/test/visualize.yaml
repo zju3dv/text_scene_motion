@@ -1,0 +1,5 @@
+vis_id: 1585
+k_id: 0
+device: 0
+scannet_root: data/ScanNet
+save_path: out/test/generate_most_twostage_motion_all/sample.pkl

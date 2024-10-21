@@ -4,6 +4,9 @@ This repo is the official implementation of "Generating Human Motion in 3D Scene
 
 ![pipeline](doc/pipeline.png)
 
+## News
+[2024/10/21] We release the visualization code.
+[2024/06/09] We first release the test & evaluation code.
 
 ## Installation
 ```bash
@@ -46,14 +49,14 @@ ln -s /path/to/humanise data/HUMANISE
 
 ### SMPLX models
 1. Download SMPLX models from [link](https://smpl-x.is.tue.mpg.de/).
-2. Put the smplx folder under data/smpl_models folder:
+2. Put the smplx folder under ```data/smpl_models``` folder:
 ```bash
 mkdir data/smpl_models
 mv smplx data/smpl_models/
 ```
 
 ### Pretrained models
-1. Weights are shared in [link](https://drive.google.com/file/d/1tftqacTRZoLfpZiNqGyDQPJlU7KnrQt6/view?usp=sharing). Please download and unzip it and put the folder most_release under out folder:
+1. Weights are shared in [link](https://drive.google.com/file/d/1tftqacTRZoLfpZiNqGyDQPJlU7KnrQt6/view?usp=sharing). Please download and unzip it and put the folder most_release under ```out``` folder:
 ```bash
 mv most_release out/release
 ```
@@ -76,11 +79,26 @@ We use Azure OpenAI service, please refer to this [link](https://learn.microsoft
 ```bash
 python tools/generate_results.py -c configs/test/generate.yaml
 ```
-The results will be saved in out/test.
+The results will be saved in ```out/test```.
 #### Evaluation
 ```bash
 python tools/evaluate_results.py -c configs/test/evaluate.yaml
 ```
+
+#### Visualization
+The generated results are shared in [link](https://drive.google.com/file/d/1zrpzJltY9bseKV3BGuZZpmmtQRT7rQye/view?usp=sharing). You can use your own generated results or download it and unzip it as ```out/test``` folder.
+
+We use [wis3d](https://pypi.org/project/wis3d/) lib to visualize the results.
+To prepare for the visualization:
+```bash
+python tools/visualizae_results.py -c configs/test/visualize.yaml
+```
+Then, in terminal:
+```bash
+wis3d --vis_dir out/vis3d --host ${HOST} --port ${PORT}
+```
+You can then visualize the results in ```${HOST}:${PORT}```.
+
 
 # Citation
 
