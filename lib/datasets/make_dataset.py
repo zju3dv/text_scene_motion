@@ -8,6 +8,7 @@ from lib.utils import logger
 from lib.utils.registry import Registry
 DATASET = Registry('dataset')
 from .humanise.humanise_motion import HumaniseMotion
+from .amass.amass_base import AMASS
 
 
 def make_dataset(cfg, split='train'):

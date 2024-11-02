@@ -26,9 +26,11 @@ def make_cfg(args):
     default_cfg_path = f"configs/{args.cfg_file.split('/')[1]}/default.yaml"
     if os.path.exists(default_cfg_path):
         cfg.merge_from_file(default_cfg_path)
+        cfg.merge_from_file(args.cfg_file)
         if 'dataset_cfg_path' in cfg.keys():
             cfg.merge_from_file(cfg.dataset_cfg_path)
-        cfg.merge_from_file(args.cfg_file)
+            cfg.merge_from_file(args.cfg_file)
+        cfg.merge_from_list(getattr(args, 'opts', []))
         # dirs
         if cfg.record_dir == 'auto':
             cfg.record_dir = f'out/train/{cfg.task}'
@@ -41,7 +43,7 @@ def make_cfg(args):
         logger.warning('overwrite gpus and resume!')
         cfg.gpus = [0]
         cfg.resume = True
-    cfg.merge_from_list(getattr(args, 'opts', []))
+        cfg.merge_from_list(getattr(args, 'opts', []))
     cfg.is_train = not args.is_test
 
     # 1. Auto config devices

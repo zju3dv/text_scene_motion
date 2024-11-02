@@ -1,0 +1,22 @@
+train_dat:
+  name: AMASS
+  limit_size: -1
+  split: train
+
+val_dat:
+  name: AMASS
+  limit_size: -1
+  split: test
+
+test_dat:
+  name: AMASS
+  limit_size: -1
+  split: test
+
+dat_cfg:
+  amass_root: data/amass_preprocess
+  max_motion_len: 120
+  num_scene_points: 1024
+  interval: 30
+  sample_data_interval: 1
+  preload: True

@@ -1,0 +1,45 @@
+auto_config: []
+
+trainer:
+  name: default
+wrapper_cfg: 
+  name: default
+  pre_methods: []
+  post_methods: []
+  sup_methods: []
+  vis_methods: []
+
+loss_weights:
+  place_holder: 0
+
+metrics: []
+
+# ====== Train/Val/Test dataset/dataloader settings ====== #
+train:
+  epoch: 200
+  batch_size: &batch_size 256
+  shuffle: True
+  num_workers: 2
+  optimizer:
+    optim: adam
+    lr: 0.
+    canonical_lr: 1.e-4
+    canonical_bs: *batch_size
+    weight_decay: 0.0
+    adamw_weight_decay: 0.01
+  scheduler:
+    type: multi_step
+    milestones: [50, 100, 150]  # if epoch == 200
+    gamma: 0.5
+
+val:
+  epoch: 1
+  batch_size: 64
+  shuffle: False
+  num_workers: 2
+
+test:
+  epoch: 1
+  batch_size: 64
+  shuffle: False
+  num_workers: 2

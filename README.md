@@ -5,9 +5,11 @@ This repo is the official implementation of "Generating Human Motion in 3D Scene
 ![pipeline](doc/pipeline.png)
 
 ## News
-[2024/10/21] We release the visualization code.
-[2024/06/09] We first release the test & evaluation code.
+[2024/11/02] We release the training code.
 
+[2024/10/21] We release the visualization code.
+
+[2024/06/09] We first release the test & evaluation code.
 ## Installation
 ```bash
 conda create -n most python=3.9
@@ -46,6 +48,15 @@ Files will be saved in data/scannet_preprocess.
 mkdir data
 ln -s /path/to/humanise data/HUMANISE
 ```
+
+### AMASS dataset
+(Only needed if you want to train the models by yourself.)
+1. Please follow [HUMOR](https://github.com/davrempe/humor/tree/main?tab=readme-ov-file#datasets) to download and preprocess AMASS dataset.
+2. Link to data/
+```bash
+ln -s /path/to/amass_processed data/amass_preprocess
+```
+
 
 ### SMPLX models
 1. Download SMPLX models from [link](https://smpl-x.is.tue.mpg.de/).
@@ -91,7 +102,7 @@ The generated results are shared in [link](https://drive.google.com/file/d/1zrpz
 We use [wis3d](https://pypi.org/project/wis3d/) lib to visualize the results.
 To prepare for the visualization:
 ```bash
-python tools/visualizae_results.py -c configs/test/visualize.yaml
+python tools/visualize_results.py -c configs/test/visualize.yaml
 ```
 Then, in terminal:
 ```bash
@@ -100,6 +111,26 @@ wis3d --vis_dir out/vis3d --host ${HOST} --port ${PORT}
 You can then visualize the results in ```${HOST}:${PORT}```.
 
 
+# Train the models by yourself
+## Pretrain on the AMASS dataset
+Train the trajectory model:
+```bash
+python tools/train.net -c configs/train/trajgen/traj_amass.yaml task amass_traj
+```
+Train the motion model:
+```bash
+python tools/train.net -c configs/train/motiongen/motion_amass.yaml task amass_motion
+```
+The outputs and models will be saved in ```out/train/```
+## Finetune on the HUMANISE dataset
+Train the trajectory model:
+```bash
+python tools/train.net -c configs/train/trajgen/traj_humanise.yaml task humanise_traj resume True resume_model_dir out/train/amass_traj/model
+```
+Train the motion model:
+```bash
+python tools/train.net -c configs/train/motiongen/motion_humanise.yaml task humanise_motion resume True resume_model_dir out/train/amass_motion/model
+```
 # Citation
 
 ```

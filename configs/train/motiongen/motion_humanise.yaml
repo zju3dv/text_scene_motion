@@ -1,0 +1,68 @@
+task: auto
+
+# resume: auto
+coord: &coord oc
+resume_model_dir: auto
+
+dataset_cfg_path: configs/dataset/humanise_motion.yaml
+
+wrapper_cfg:
+  name: MotionDiffuserWrapper
+  smplx_model_type: humanise
+  pre_methods: ['clip_text']
+  normalizer:
+    name: NormalizerPoseMotion
+    file: out/release/normalize/amass_az_humanise_oc_transl_orient6d_pose6d.pkl
+    
+metrics: ['recon_localpose', 'recon_trans', 'recon_orient']
+
+loss_weights:
+  recon_trans: 1.0
+  recon_orient_6d: 1.0
+  recon_pose_6d: 10.0
+
+train:
+  epoch: 400
+  batch_size: 128
+  optimizer:
+    canonical_bs: 128
+  scheduler:
+    type: multi_step
+    milestones: [50, 100, 150, 250, 300, 350]  # if epoch == 200
+
+net_cfg:
+  coord: *coord
+  repr: motion
+  name: DiffuserNetwork
+  k_sample: 10
+  diffuser:
+    name: ObserConditionalDDPM
+    timesteps: 200
+    pred_type: pred_x0
+    obser: False
+    obser_type: start_motion
+    schedule_cfg:
+      beta: [0.0001, 0.01]
+      beta_schedule: cosine
+      s: 0.008
+  model:
+    name: MotionFromSceneTextTrajVoxelV0
+    d_l: 120
+    d_x: 135
+    d_betas: 10
+    env_sensor:
+      name: EnvSensor
+      voxel_dim: 8
+      radius: 2.0
+    target_sensor:
+      name: TargetSensor
+      voxel_dim: 8
+    traj_sensor:
+      name: TrajSensor
+      voxel_dim: 8
+      radius: 1.0
+      
+  optimizer:
+    name: default
+  planner:
+    name: default
